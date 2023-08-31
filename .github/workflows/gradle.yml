@@ -28,6 +28,8 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle
       run: ./gradlew build bootJar  # Use 'run' to execute the build command
+    - name: Syft SBOM generation
+      uses: anchore/sbom-action@v0
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
