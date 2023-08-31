@@ -35,9 +35,25 @@ jobs:
       with:
         scan-type: fs
         format: github
-        output: "build/libs/sbom.trivy.spdx.json"
+        output: "build/sbom.trivy.spdx.json"
+    - name: Run Microsoft SBOM tool
+      run: |
+        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+        chmod +x $RUNNER_TEMP/sbom-tool
+        $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc . -pn Test -pv 1.0.0 -ps MyCompany -nsb https://sbom.mycompany.com -V Verbose
     - name: Upload Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3.1.0
       with:
         name: build-artifact
         path: build/libs  # Path to the build output directory
+    - name: Upload Trivy SBOM
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: trivy-sbom
+        path: "build/sbom.trivy.spdx.json"
+    - name: Upload Microsoft SBOM
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: microsoft-sbom
+        path: "buildOutput"
+
