@@ -27,9 +27,9 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
     - name: Build with Gradle
-      run: ./gradlew build  # Use 'run' to execute the build command
+      run: ./gradlew build bootJar  # Use 'run' to execute the build command
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: build-artifact
-        path: build  # Path to the build output directory
+        path: build/libs  # Path to the build output directory
