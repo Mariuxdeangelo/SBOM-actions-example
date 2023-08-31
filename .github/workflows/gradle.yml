@@ -34,7 +34,7 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         scan-type: fs
-        format: json
+        format: github
         output: "build/libs/sbom.trivy.spdx.json"
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
