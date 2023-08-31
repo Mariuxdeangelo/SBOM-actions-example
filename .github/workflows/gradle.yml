@@ -31,7 +31,9 @@ jobs:
     - name: Syft SBOM generation
       uses: anchore/sbom-action@v0
     - name: CdxGen SBOM generation
-      uses: AppThreat/cdxen-action@v1
+      uses: AppThreat/cdxgen-action@v1
+      with:
+        output: "build/libs/sbom.cdxgen.cdx.json"
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v2
       with:
